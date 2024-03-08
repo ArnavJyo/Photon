@@ -1,0 +1,54 @@
+/* src/App.css */
+/* ... (previous styles) */
+
+.task-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  height: 500px;
+  background-color: #666;
+  padding-right: 20px;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropbtn {
+  background-color: #666;
+  color: white;
+  padding: 10px 20px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #666;
+  min-width: 160px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.button-container {
+  display: flex;
+}
+
+.button {
+  background-color: #333;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #555;
+}
