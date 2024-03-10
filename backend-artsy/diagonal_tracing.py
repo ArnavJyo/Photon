@@ -11,6 +11,12 @@ def diagonal_trace(img_path):
     img = image.open(img_path)
     imx = img.size[0]
     imy = img.size[1]
+    if imx > 100 and imy > 100:
+    # Resize the image to 500x500
+        img = img.resize((500, 500))
+        print("Resized Size - Width:", 500, "Height:", 500)
+    imx = img.size[0]
+    imy = img.size[1]
     imgIn = image.new('RGB', img.size)
     imgIn.paste(img)
     imgOut = image.new('RGB', img.size, BG)
