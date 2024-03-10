@@ -217,6 +217,9 @@ const PhotoUploader = () => {
                   <button onClick={() => handleUpload("Square Scatter")}>
                     Square Scatter
                   </button>
+                  <button onClick={() => handleUpload("Strings")}>
+                    Strings
+                  </button>
                 </div>
               </div>
             </div>
