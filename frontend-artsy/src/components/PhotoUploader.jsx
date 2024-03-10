@@ -197,6 +197,17 @@ const PhotoUploader = () => {
                       </button>
                     </div>
                   </div>
+                  <div className='dropdown'>
+                    <button className='dropbtn'>Psuedo-Halftone</button>
+                    <div className='dropdown-content'>
+                      <button onClick={() => handleUpload("Halftone Add")}>
+                        Halftone Add
+                      </button>
+                      <button onClick={() => handleUpload("Halftone Sub")}>
+                        Halftone Sub
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
