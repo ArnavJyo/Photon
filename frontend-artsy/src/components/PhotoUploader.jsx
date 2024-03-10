@@ -208,6 +208,12 @@ const PhotoUploader = () => {
                       </button>
                     </div>
                   </div>
+                  <button onClick={() => handleUpload("Diagonal Tracing")}>
+                    Diagonal Tracing
+                  </button>
+                  <button onClick={() => handleUpload("Circle Scatter")}>
+                    Circle Scatter
+                  </button>
                 </div>
               </div>
             </div>

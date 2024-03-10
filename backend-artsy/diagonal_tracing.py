@@ -1,56 +1,10 @@
 import numpy as np
 import random, math, time
 from PIL import Image as image
-
-def clamp(value, vmin, vmax):
-    '''
-    Clamp function
-    '''
-    if(value < vmin):
-        value = vmin
-    if(value > vmax):
-        value = vmax
-    return value
-
-def searchPoints(po):
-    '''
-    Search points
-    '''
-    co = imgIn.getpixel((clamp(po[0], 0, imx - 1),
-                         clamp(po[1], 0, imy - 1)))
-    pi, ci = po, co
-    x, y = po[0], po[1]
-    while((x < imx) or (y < imy)):
-        x += 1
-        y += 1
-        try:
-            pi = (x, y)
-            ci = imgIn.getpixel(pi)
-            if((abs(ci[0] - co[0]) > colorDisp) +
-               (abs(ci[1] - co[1]) > colorDisp) +
-               (abs(ci[2] - co[2]) > colorDisp)):
-                pi = (x - 1, y - 1)
-                ci = imgIn.getpixel(pi)
-                break
-        except:
-            continue
-    return po, pi, co, ci
-
-def drawL(tx, ty, rad, cd):
-    '''
-    Draw a trace
-    '''
-    for i in range(rad + 1):
-        try:
-            px = int(tx - rad/2 + i)
-            py = int(ty + rad/2 - i)
-            imgOut.putpixel((px, py), cd)
-        except:
-            continue
 def diagonal_trace(img_path):
     rad = 4
     sb = 6
-    colorDisp = 50    # color dispersion tolerance
+    colorDisp = 20    # color dispersion tolerance
     BG = (20, 30, 10) # background color
 # init
     
@@ -60,7 +14,50 @@ def diagonal_trace(img_path):
     imgIn = image.new('RGB', img.size)
     imgIn.paste(img)
     imgOut = image.new('RGB', img.size, BG)
-
+    def drawL(tx, ty, rad, cd):
+        '''
+        Draw a trace
+        '''
+        for i in range(rad + 1):
+            try:
+                px = int(tx - rad/2 + i)
+                py = int(ty + rad/2 - i)
+                imgOut.putpixel((px, py), cd)
+            except:
+                continue
+    def clamp(value, vmin, vmax):
+        '''
+        Clamp function
+        '''
+        if(value < vmin):
+            value = vmin
+        if(value > vmax):
+            value = vmax
+        return value
+    def searchPoints(po):
+        '''
+        Search points
+        '''
+      
+        co = imgIn.getpixel((clamp(po[0], 0, imx - 1),
+                         clamp(po[1], 0, imy - 1)))
+        pi, ci = po, co
+        x, y = po[0], po[1]
+        while((x < imx) or (y < imy)):
+            x += 1
+            y += 1
+            try:
+                pi = (x, y)
+                ci = imgIn.getpixel(pi)
+                if((abs(ci[0] - co[0]) > colorDisp) +
+                (abs(ci[1] - co[1]) > colorDisp) +
+                (abs(ci[2] - co[2]) > colorDisp)):
+                    pi = (x - 1, y - 1)
+                    ci = imgIn.getpixel(pi)
+                    break
+            except:
+                continue
+        return po, pi, co, ci
     # execution
     x, y = 0, 0
     i, j = 0, 0
@@ -100,3 +97,6 @@ def diagonal_trace(img_path):
         y = 0
         po = (x, y)
         imyy = 1
+    img_array = np.array(imgOut)
+
+    return img_array
