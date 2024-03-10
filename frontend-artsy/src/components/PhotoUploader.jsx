@@ -214,6 +214,9 @@ const PhotoUploader = () => {
                   <button onClick={() => handleUpload("Circle Scatter")}>
                     Circle Scatter
                   </button>
+                  <button onClick={() => handleUpload("Square Scatter")}>
+                    Square Scatter
+                  </button>
                 </div>
               </div>
             </div>

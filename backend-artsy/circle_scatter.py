@@ -78,6 +78,16 @@ class Point:
                         self.imgOut.putpixel((x, y), (cr, cg, cb))
                 except:
                     continue
+    def square(self):
+        '''
+        Draw a square
+        '''
+        for y in range(self.ty - self.rad, self.ty + self.rad):
+            for x in range(self.tx - self.rad, self.tx + self.rad):
+                try:
+                    self.imgOut.putpixel((x, y), self.cd)
+                except:
+                    continue
 def circle_scatter(imgpath):
     
 # parameters
@@ -120,6 +130,53 @@ def circle_scatter(imgpath):
         
     for point in lpt:
         point.circle()
+    img_array = np.array(imgOut)
+
+    return img_array
+def square_scatter(imgpath):
+    lod = 8         # level of detail
+    minSamp = 0.001 # minimum probability
+    maxSamp = 0.05  # maximum probability
+
+    minSize = 8     # minimum size
+    maxSize = 32    # maximum size
+    varSize = 0.5   # size deviation
+
+# inicialização
+    img = image.open(imgpath)
+    imx = img.size[0]
+    imy = img.size[1]
+    if imx > 100 and imy > 100:
+    # Resize the image to 500x500
+        img = img.resize((500, 500))
+        print("Resized Size - Width:", 500, "Height:", 500)
+    imx = img.size[0]
+    imy = img.size[1]
+    imgIn = image.new('RGB', img.size)
+    imgIn.paste(img)
+    midPix, highPix = midHigh(imgIn)
+    highPixMax = max(highPix)
+    imgOut = image.new('RGB', img.size, midPix)
+
+    # execução
+    imgArr = np.asarray(imgIn)
+    imgArrM = imgArr.max(axis=2)
+    lpt = []
+    for lvl in range(lod):
+        mmin = int(lvl*highPixMax/lod)
+        mmax = int((lvl + 1)*highPixMax/lod)
+        sel = np.argwhere(np.logical_and(imgArrM > mmin,
+                                        imgArrM <= mmax))
+        sel = np.argwhere(imgArrM > mmin)
+        np.random.shuffle(sel)
+        lim = np.linspace(minSamp, maxSamp, lod)[lvl]
+        lim = int(lim*len(sel))
+        for py, px in sel[:lim]:
+            cd = imgArr[py, px]
+            lpt.append(Point(px, py, cd, lvl,imgOut))
+            
+    for point in lpt:
+        point.square()
     img_array = np.array(imgOut)
 
     return img_array
