@@ -1,5 +1,11 @@
 /* src/App.css */
-/* ... (previous styles) */
+
+.dropzone {
+  border: 2px dashed #cccccc;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+}
 
 .task-bar {
   display: flex;
@@ -21,6 +27,9 @@
   padding: 10px 20px;
   font-size: 16px;
   cursor: pointer;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  border-color: grey;
 }
 
 .dropdown-content {
@@ -51,4 +60,17 @@
 
 .button:hover {
   background-color: #555;
+}
+@media screen and (max-width: 768px) {
+  .task-bar {
+    align-items: center; /* Center items on smaller screens */
+  }
+
+  .dropbtn {
+    margin-bottom: 5px; /* Reduce margin for dropdown buttons */
+  }
+
+  .button {
+    margin: 2px; /* Reduce margin for regular buttons */
+  }
 }

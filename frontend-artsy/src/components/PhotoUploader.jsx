@@ -146,7 +146,7 @@ const PhotoUploader = () => {
     <Container>
       <Row className='mt-5'>
         <Col xs={12} className='text-center'>
-          <h2>Photo Uploader</h2>
+          <h2>Photon</h2>
           <Form>
             <Form.Group controlId='formFile' className='mb-3'>
               <Dropzone onDrop={handleFileDrop}>
