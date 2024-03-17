@@ -220,6 +220,9 @@ const PhotoUploader = () => {
                   <button onClick={() => handleUpload("Strings")}>
                     Strings
                   </button>
+                  <button onClick={() => handleUpload("Segment")}>
+                    Segment
+                  </button>
                 </div>
               </div>
             </div>

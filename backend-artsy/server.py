@@ -5,6 +5,7 @@ from psudo_halftone import PointAdd,PointSub,halftone_add,halftone_sub,setRange
 from diagonal_tracing import diagonal_trace
 from circle_scatter import circle_scatter,square_scatter
 from strings import strings
+from segmentation import segmentation
 app = Flask(__name__)
 CORS(app)
 @app.route('/process-image', methods=['POST'])
@@ -36,6 +37,8 @@ def process_image():
         processed_image_path = square_scatter(temp_image_path)
     elif button_text == "Strings":
         processed_image_path = strings(temp_image_path)
+    elif button_text == "Segment":
+        processed_image_path = segmentation(temp_image_path)
     else:
         return jsonify({'error': 'Invalid button text'}), 400
     
