@@ -263,7 +263,7 @@ const PhotoUploader = () => {
                   <input
                     type='range'
                     min='1'
-                    max='500'
+                    max='400'
                     value={noiseIntensity}
                     onChange={handleNoiseIntensityChange}
                   />
@@ -274,7 +274,7 @@ const PhotoUploader = () => {
                   <input
                     type='range'
                     min='1'
-                    max='500'
+                    max='50'
                     value={pixelIntensity}
                     onChange={handlePixelIntensityChange}
                   />

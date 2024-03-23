@@ -41,7 +41,6 @@ def blur(img_path, intensity=1):
             )
             blurred_img.putpixel((i, j), blurred_pixel)
     img_array = np.array(blurred_img)
-
     return img_array
     
     

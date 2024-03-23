@@ -10,6 +10,13 @@ def pixelate(image_path, block_size):
     img = img.convert('RGB')
 
     # Get image size
+    imx = img.size[0]
+    imy = img.size[1]
+
+    if imx > 100 and imy > 100:
+    # Resize the image to 100x100
+        img = img.resize((500, 500))
+        print("Resized Size - Width:", 100, "Height:", 100)
     width, height = img.size
 
     # Calculate the number of blocks in each dimension
