@@ -6,6 +6,10 @@ from diagonal_tracing import diagonal_trace
 from circle_scatter import circle_scatter,square_scatter
 from strings import strings
 from segmentation import segmentation
+from greyscale import grayscale
+from blur import blur
+from noise import add_noise
+
 app = Flask(__name__)
 CORS(app)
 @app.route('/process-image', methods=['POST'])
@@ -39,6 +43,15 @@ def process_image():
         processed_image_path = strings(temp_image_path)
     elif button_text == "Segment":
         processed_image_path = segmentation(temp_image_path)
+    elif button_text == "Grayscale":
+        processed_image_path = grayscale(temp_image_path)
+    elif button_text == "Blur":
+        blur_intensity = int(request.form.get('blurIntensity',1))
+        processed_image_path = blur(temp_image_path,blur_intensity)
+    elif button_text == "Noise":
+        noise_intensity = int(request.form.get('noiseIntensity',25))
+        processed_image_path = add_noise(temp_image_path,0,noise_intensity)
+   
     else:
         return jsonify({'error': 'Invalid button text'}), 400
     

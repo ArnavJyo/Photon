@@ -1,34 +1,37 @@
-import imageio
 import numpy as np
-from tqdm import tqdm
 from PIL import Image as image
-def get_shape(image_path):
-    img =image.open(image_path)
-    shape = image.shape
-    if len(shape)==3 or len(shape)==2:
-        return shape
-    else:
-        raise Exception("Sorry, something is wrong!")
+import random
 
-def is_grayscale(image):
-    if len(get_shape(image))==3:
-        return False
-    elif len(get_shape(image))==2:
-        return True
-    else:
-        raise Exception("Sorry, something is wrong!")
+def grayscale(image_path):
+    # Open the image using PIL
+    img = image.open(image_path)
 
-def get_luminance(image):
-    return 0.299*image[:, :, 0] + 0.587*image[:, :, 1] + 0.114*image[:, :, 2]
+    # Convert the image to RGB mode (if it's not already in that mode)
+    img = img.convert('RGB')
+    imx = img.size[0]
+    imy = img.size[1]
+    if imx > 100 and imy > 100:
+    # Resize the image to 100x100
+        img = img.resize((500, 500))
+        print("Resized Size - Width:", 100, "Height:", 100)
+    imx = img.size[0]
+    imy = img.size[1]
+    imgIn = image.new('RGB', img.size)
+    imgIn.paste(img)
 
-def zeros(height, width, depth=None):
-    return np.zeros((height, width)) if depth is None else np.zeros((height, width, depth))
+    # Create a new blank grayscale image
+    gray_img = image.new('L', (imx,imy))
 
-def convert_grayscale(image):
-    if not is_grayscale(image):
-        height, width, _ = get_shape(image)
-        gray_image       = zeros(height, width)
-        gray_image = get_luminance(image)
-        return gray_image
-    else:
-        return image
+    # Iterate over each pixel of the original image
+    for y in range(imy):
+        for x in range(imx):
+            # Get the RGB values of the current pixel
+            r, g, b = img.getpixel((x, y))
+
+            # Calculate luminance using the formula: Y = 0.299*R + 0.587*G + 0.114*B
+            luminance = int(0.299 * r + 0.587 * g + 0.114 * b)
+
+            # Set the grayscale pixel value in the new image
+            gray_img.putpixel((x, y), luminance)
+    img_array = np.array(gray_img)
+    return img_array

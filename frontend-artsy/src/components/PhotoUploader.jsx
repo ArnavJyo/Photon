@@ -6,6 +6,8 @@ import "../App.css";
 const PhotoUploader = () => {
   const [selectedFile, setSelectedFile] = useState(null);
   const [processedImage, setProcessedImage] = useState(null);
+  const [blurIntensity, setBlurIntensity] = useState(1);
+  const [noiseIntensity, setNoiseIntensity] = useState(25);
   const canvasRef = useRef(null);
 
   const handleFileDrop = (acceptedFiles) => {
@@ -22,6 +24,12 @@ const PhotoUploader = () => {
     const formData = new FormData();
     formData.append("image", selectedFile);
     formData.append("buttonText", buttonText);
+    if (buttonText === "Blur") {
+      formData.append("blurIntensity", blurIntensity);
+    }
+    if (buttonText === "Noise") {
+      formData.append("noiseIntensity", noiseIntensity);
+    }
 
     try {
       const response = await fetch("http://localhost:5000/process-image", {
@@ -30,6 +38,7 @@ const PhotoUploader = () => {
       });
       if (response.ok) {
         const result = await response.json();
+        console.log("Response from server:", result);
         console.log(result.processed_image_path);
         setProcessedImage(result.processed_image_path);
       } else {
@@ -38,6 +47,12 @@ const PhotoUploader = () => {
     } catch (error) {
       console.error("Error processing image:", error);
     }
+  };
+  const handleBlurIntensityChange = (event) => {
+    setBlurIntensity(parseInt(event.target.value));
+  };
+  const handleNoiseIntensityChange = (event) => {
+    setNoiseIntensity(parseInt(event.target.value));
   };
   const getImageDataUrl = (pixelData) => {
     const canvas = document.createElement("canvas");
@@ -223,6 +238,27 @@ const PhotoUploader = () => {
                   <button onClick={() => handleUpload("Segment")}>
                     Segment
                   </button>
+                  <button onClick={() => handleUpload("Grayscale")}>
+                    GrayScale
+                  </button>
+                  <button onClick={() => handleUpload("Blur")}>Blur</button>
+                  {/* Added button for blur */}
+                  <input
+                    type='range'
+                    min='1'
+                    max='10'
+                    value={blurIntensity}
+                    onChange={handleBlurIntensityChange}
+                  />
+                  <button onClick={() => handleUpload("Noise")}>Noise</button>
+                  {/* Added button for blur */}
+                  <input
+                    type='range'
+                    min='1'
+                    max='500'
+                    value={noiseIntensity}
+                    onChange={handleNoiseIntensityChange}
+                  />
                 </div>
               </div>
             </div>
