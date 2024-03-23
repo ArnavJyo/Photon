@@ -8,6 +8,8 @@ const PhotoUploader = () => {
   const [processedImage, setProcessedImage] = useState(null);
   const [blurIntensity, setBlurIntensity] = useState(1);
   const [noiseIntensity, setNoiseIntensity] = useState(25);
+  const [pixelIntensity, setPixelIntensity] = useState(1);
+
   const canvasRef = useRef(null);
 
   const handleFileDrop = (acceptedFiles) => {
@@ -29,6 +31,9 @@ const PhotoUploader = () => {
     }
     if (buttonText === "Noise") {
       formData.append("noiseIntensity", noiseIntensity);
+    }
+    if (buttonText === "Pixalate") {
+      formData.append("pixelIntensity", pixelIntensity);
     }
 
     try {
@@ -53,6 +58,9 @@ const PhotoUploader = () => {
   };
   const handleNoiseIntensityChange = (event) => {
     setNoiseIntensity(parseInt(event.target.value));
+  };
+  const handlePixelIntensityChange = (event) => {
+    setPixelIntensity(parseInt(event.target.value));
   };
   const getImageDataUrl = (pixelData) => {
     const canvas = document.createElement("canvas");
@@ -258,6 +266,17 @@ const PhotoUploader = () => {
                     max='500'
                     value={noiseIntensity}
                     onChange={handleNoiseIntensityChange}
+                  />
+                  <button onClick={() => handleUpload("Pixalate")}>
+                    Pixalate
+                  </button>
+                  {/* Added button for blur */}
+                  <input
+                    type='range'
+                    min='1'
+                    max='500'
+                    value={pixelIntensity}
+                    onChange={handlePixelIntensityChange}
                   />
                 </div>
               </div>

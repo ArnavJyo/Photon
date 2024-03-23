@@ -9,6 +9,7 @@ from segmentation import segmentation
 from greyscale import grayscale
 from blur import blur
 from noise import add_noise
+from pixalate import pixelate
 
 app = Flask(__name__)
 CORS(app)
@@ -51,7 +52,9 @@ def process_image():
     elif button_text == "Noise":
         noise_intensity = int(request.form.get('noiseIntensity',25))
         processed_image_path = add_noise(temp_image_path,0,noise_intensity)
-   
+    elif button_text == "Pixalate":
+        pixel_intensity = int(request.form.get('pixelIntensity',0))
+        processed_image_path = pixelate(temp_image_path,pixel_intensity)
     else:
         return jsonify({'error': 'Invalid button text'}), 400
     
