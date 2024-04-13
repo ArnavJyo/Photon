@@ -112,9 +112,9 @@ const PhotoUploader = () => {
         ctx.drawImage(img, 0, 0, width, height);
         canvas.toBlob(
           (blob) => {
-            resolve(new File([blob], "resized_image", { type: "image/jpeg" }));
+            resolve(new File([blob], "resized_image", { type: "image/png" }));
           },
-          "image/jpeg",
+          "image/png",
           1
         );
       };
@@ -248,6 +248,9 @@ const PhotoUploader = () => {
                   </button>
                   <button onClick={() => handleUpload("Grayscale")}>
                     GrayScale
+                  </button>
+                  <button onClick={() => handleUpload("RemoveBG")}>
+                    RemoveBG
                   </button>
                   <button onClick={() => handleUpload("Blur")}>Blur</button>
                   {/* Added button for blur */}

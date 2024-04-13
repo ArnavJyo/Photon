@@ -16,7 +16,8 @@
     "react-bootstrap": "^2.10.1",
     "react-dom": "^18.2.0",
     "react-dropzone": "^14.2.3",
-    "react-konva": "^18.2.10"
+    "react-konva": "^18.2.10",
+    "react-lasso-select": "^1.2.2"
   },
   "devDependencies": {
     "@types/react": "^18.2.56",

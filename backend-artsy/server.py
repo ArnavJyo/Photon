@@ -10,7 +10,8 @@ from greyscale import grayscale
 from blur import blur
 from noise import add_noise
 from pixalate import pixelate
-
+from ASCII import ASCII
+from removebg import removebg
 app = Flask(__name__)
 CORS(app)
 @app.route('/process-image', methods=['POST'])
@@ -55,6 +56,11 @@ def process_image():
     elif button_text == "Pixalate":
         pixel_intensity = int(request.form.get('pixelIntensity',0))
         processed_image_path = pixelate(temp_image_path,pixel_intensity)
+    elif button_text == "ASCII":
+        processed_image_path = ASCII(temp_image_path)
+    elif button_text == "RemoveBG":
+        processed_image_path = removebg(temp_image_path)
+    
     else:
         return jsonify({'error': 'Invalid button text'}), 400
     
